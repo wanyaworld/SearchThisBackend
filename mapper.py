@@ -1,6 +1,7 @@
 #!/usr/bin/env python3 
 import sys 
 import string 
+import json
 from collections import deque
 
 lookwards = 3
@@ -36,5 +37,6 @@ if found == 1:
 		res += prv + ' '
 	for next in nexts:
 		res += next + ' '
-print(filename)
-print(res)
+jsonResult ={ "url": filename, "result": res }
+print(jsonResult)
+#print(JSON.stringify(jsonResult))
