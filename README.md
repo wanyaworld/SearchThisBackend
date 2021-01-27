@@ -5,4 +5,4 @@ This is a MapReduce project that searches documents that corresponds to query.
 1. ssh to your EMR master node
 2. git pull this repo
 3. ./load.sh 
-4. ./run.sh <query>
+4. ./run.sh \<query\>
