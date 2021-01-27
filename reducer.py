@@ -16,4 +16,4 @@ for word, count in word_count.items():
 '''
 
 for line in sys.stdin:
-	print(line.rstrip())
+	print(line.rstrip()+',')

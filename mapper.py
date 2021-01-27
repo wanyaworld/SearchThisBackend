@@ -38,5 +38,5 @@ if found == 1:
 	for next in nexts:
 		res += next + ' '
 jsonResult ={ "url": filename, "result": res }
-print(jsonResult)
+print(json.dumps(jsonResult))
 #print(JSON.stringify(jsonResult))
