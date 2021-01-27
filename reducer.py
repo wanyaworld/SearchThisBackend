@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from collections import defaultdict
 import sys
+'''from collections import defaultdict
 word_count = defaultdict(int)
 for line in sys.stdin:
     try:
@@ -13,3 +13,7 @@ for line in sys.stdin:
 
 for word, count in word_count.items():
     print(word, count)
+'''
+
+for line in sys.stdin:
+	print(line.rstrip())
