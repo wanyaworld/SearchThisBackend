@@ -1,0 +1,42 @@
+# production environment
+FROM ubuntu:18.04
+WORKDIR /django_static
+EXPOSE 80
+
+# configure apache
+RUN apt-get update && \
+ apt-get -y install apache2
+RUN echo '. /etc/apache2/envvars' > /root/run_apache.sh && \
+ echo 'service apache2 start' >> /root/run_apache.sh && \ 
+ chmod 755 /root/run_apache.sh
+
+# configure django
+RUN apt-get install python3-pip libapache2-mod-wsgi-py3 -y
+COPY django/settings.py /tmp/settings.py
+COPY django/urls.py /tmp/urls.py
+COPY django/pages /tmp/pages
+COPY django/leads /tmp/leads
+COPY ../output /tmp/output
+COPY 000-default.conf /tmp/000-default.conf
+RUN echo 'pip3 install virtualenv' > /root/run_django.sh && \
+ echo 'virtualenv myprojectenv' >> /root/run_django.sh && \
+ echo '. myprojectenv/bin/activate' >> /root/run_django.sh && \
+ echo 'pip3 install django' >> /root/run_django.sh && \
+ echo 'pip3 install djangorestframework' >> /root/run_django.sh && \
+ echo 'django-admin.py startproject myproject .' >> /root/run_django.sh && \
+ echo 'cp /tmp/settings.py /django_static/myproject/settings.py' >> /root/run_django.sh && \
+ echo 'cp /tmp/urls.py /django_static/myproject/urls.py' >> /root/run_django.sh && \
+ echo 'cp -r /tmp/pages /django_static/' >> /root/run_django.sh && \
+ echo 'cp -r /tmp/leads /django_static/' >> /root/run_django.sh && \
+ echo 'cp -r /tmp/output /django_static/' >> /root/run_django.sh && \
+ echo 'cp /tmp/000-default.conf /etc/apache2/sites-available/000-default.conf' >> /root/run_django.sh && \
+ echo 'deactivate' >> /root/run_django.sh && \
+ chmod 755 /root/run_django.sh
+
+# integrate commands into a shell file
+RUN echo '/root/run_django.sh' > /root/execute.sh && \
+    echo '/root/run_apache.sh' >> /root/execute.sh && \
+    echo 'sleep infinity' >> /root/execute.sh && \
+    chmod 755 /root/execute.sh
+
+CMD /root/execute.sh

@@ -2,3 +2,4 @@
 *.crc
 output
 bkup
+node_modules
