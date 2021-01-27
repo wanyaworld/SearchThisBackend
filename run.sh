@@ -1,6 +1,7 @@
 # Copy files
 hdfs dfs -mkdir books-input
-hdfs dfs -put books-input/*.txt books-input
+#hdfs dfs -put books-input/*.txt books-input
+hadoop fs -D fs.local.block.size=1000000000 -put books-input/*.txt books-input
 
 # Run MR
 real_cmd=\'

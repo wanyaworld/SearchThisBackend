@@ -6,3 +6,4 @@ do
 done
 cd books-input
 ../add_name.sh
+chmod 777 *
