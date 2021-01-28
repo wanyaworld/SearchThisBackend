@@ -7,24 +7,6 @@ import subprocess
 import os
 import json
 
-def queryResultView(request, query):
-    subprocess.call(['sh', '../../../run.sh', query, '>', '../../../output/'])
-    data = {
-        'documents': [
-            {
-            'query': query,
-            'title': 'Title 1',
-            'content': 'This iss the 1st content.',
-            },
-            {
-            'query': query,
-            'title': 'Title 2',
-            'content': 'This iss the 2nd content.',
-            },
-        ]
-    }
-    return JsonResponse(data);
-
 def queryResultViewTmp(request, query):
     #os.chdir('../../../')
     with open('/django_static/output', 'r') as file:
