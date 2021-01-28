@@ -5,5 +5,5 @@ do
 	wget "http://www.gutenberg.org/files/$i/$i.txt" -P books-input/
 done
 cd books-input
-../add_name.sh
+/django_static/map_reduce_static/add_name.sh
 chmod 777 *
